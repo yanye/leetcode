@@ -1,6 +1,6 @@
 /************************************************************************/
 /*                                   
-思路：  
+思路：
 1） 将字符串首部多余的空格去除掉；
 2） 将字符串整体反转；
 3） 去掉反转后字符串首部多余的空格；
@@ -51,7 +51,6 @@ void reverseWords(string &s) {
         }else{
             if(j>i+1){//完成了一个单词的前进，将该单词再次反转
                 reverseWholeStr(s,i,j-1);
-                j++;
                 i=j;//更新下标
             }else{//处理多余的空格
                 if (j+1<s.length()&&s[j+1]!=' ')
@@ -75,7 +74,7 @@ void reverseWords(string &s) {
 }
 void main (void)
 {
-    string s="   hi   ,      ";
+    string s="   hi dd     hi  you   ";
     reverseWords(s);
     cout <<s<<endl;
 }
