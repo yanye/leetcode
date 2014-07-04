@@ -7,11 +7,11 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
- /******************************************/
+  /******************************************/
  /*
  思路：
- 前序遍历顺序是根左右。所以对每个节点，首先将其输出，然后将其入栈，一直找到它最最最左节点。
- 在这个过程中，要一直输出，并入栈。做完后，需要转到其右节点。然后一直重复上述过程即可
+ 中序遍历顺序是左根右。所以对每个节点，首先找到最左的节点，然后将其入栈，一直找到它最最最左节点。
+ 在这个过程中，要一直入栈。最后我们到了最左节点，可以将其输出，然后转到其右节点。一直重复上述过程即可
  */
  /*****************************************/
 class Solution {
@@ -40,24 +40,24 @@ public:
             return false;
         }
     }
-    vector<int> preorderTraversal(TreeNode *root) {
-        vector<int> preResult;
-        if(root==NULL || root->val=='#') return preResult;
+    vector<int> inorderTraversal(TreeNode *root) {
+        vector<int> inResult;
+        if(isNodeNull(root)) return inResult;
+        TreeNode *visit=root;
         stack<TreeNode*> nodeStack;
-        TreeNode* visit=root;
-        while(visit!=NULL || !nodeStack.empty()){//根节点不为空，并且栈不为空，则继续遍历
-            while(!isNodeNull(visit)){//找到其最最最左节点
-                preResult.push_back(visit->val);//输出左节点
-                nodeStack.push(visit);//左节点入栈
+        while(visit!=NULL || !nodeStack.empty()){
+            while(!isNodeNull(visit)){//一直找到最左节点
+                nodeStack.push(visit);
                 visit=visit->left;
             }
-            //左节点全部入栈后，则转到其右节点
+            
             if(!nodeStack.empty()){
-                visit=nodeStack.top();//取栈顶元素
-                visit=visit->right;//转到其右节点
-                nodeStack.pop();//该栈顶元素及其左节点均被输出，而右节点已经保存了，所以删除该节点
+                visit=nodeStack.top();
+                inResult.push_back(visit->val);//对最左节点输出
+                visit=visit->right;//转到右节点
+                nodeStack.pop();
             }
         }
-        return preResult;
+        return inResult;
     }
 };
