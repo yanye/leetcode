@@ -1,4 +1,0 @@
-leedcode
-========
-
-leedcode solutions
